@@ -68,7 +68,11 @@ function get_cf_mu_blog_feed() {
 		/* Loop through each of the blogs' posts and get the permalink and featured image for each post */
 		foreach ($blog_feed[$blog['blog_id']]['posts'] as $post) {
 			$post->permalink = get_permalink($post->ID);
-			$post->featured_image = cffp_get_img($post->ID, 'thumbnail', 'featured_image');
+			
+			/* Only attach featured image if plugin exists */
+			if (function_exists('cffp_get_img')) {
+				$post->featured_image = cffp_get_img($post->ID, 'thumbnail', 'featured_image');
+			}
 		}
 		restore_current_blog();
 	}
