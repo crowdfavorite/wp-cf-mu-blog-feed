@@ -71,7 +71,7 @@ function get_cf_mu_blog_feed() {
 			
 			/* Only attach featured image if plugin exists */
 			if (function_exists('cffp_get_img')) {
-				$post->featured_image = cffp_get_img($post->ID, 'thumbnail', 'featured_image');
+				$post->featured_image = apply_filters('cf_mu_blog_feed_post_image', cffp_get_img($post->ID, 'thumbnail', 'featured_image'), $post->ID);
 			}
 		}
 		restore_current_blog();
