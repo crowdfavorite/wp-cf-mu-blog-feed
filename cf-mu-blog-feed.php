@@ -68,19 +68,11 @@ function get_cf_mu_blog_feed() {
 		/* Loop through each of the blogs' posts and get the permalink and featured image for each post */
 		foreach ($blog_feed[$blog['blog_id']]['posts'] as $post) {
 			$post->permalink = get_permalink($post->ID);
-			
-			$post->featured_image = cffp_featured_image
+			$post->featured_image = cffp_get_img($post->ID, 'thumbnail', 'featured_image');
 		}
-		
 		restore_current_blog();
 	}
-	
-	
-	return $blog_feed;
-}
-
-function cf_mu_blog_feed() {
-	echo get_cf_mu_blog_feed();
+	return apply_filters('cf_mu_blog_feed_results', $blog_feed);
 }
 
 
