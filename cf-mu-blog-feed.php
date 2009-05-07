@@ -49,6 +49,7 @@ add_action('init', 'cfmbf_request_handler');
 function get_cf_mu_blog_feed() {
 	/* Get array of latest updated blogs */
 	$blog_list = get_last_updated();
+//	get_latest_posts
 
 	/* Set up the number of posts per blog to retrieve */
 	$num_posts = 3; // default to 3 posts
@@ -60,6 +61,7 @@ function get_cf_mu_blog_feed() {
 	/* Loop through latest blogs and grab last X number of posts to add to the blog_feed array*/
 	foreach ($blog_list as $blog) {
 		switch_to_blog($blog['blog_id']);
+		$blog_feed[$blog['blog_id']]['description'] = get_bloginfo('description');
 		$args = array(
 			'numberposts' => $num_posts,
 		);
