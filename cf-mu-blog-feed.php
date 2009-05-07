@@ -47,9 +47,8 @@ add_action('init', 'cfmbf_request_handler');
 
 
 function get_cf_mu_blog_feed() {
-	/* Get array of latest updated blogs */
-	$blog_list = get_last_updated();
-//	get_latest_posts
+	/* Get array of blogs */
+	$blog_list = get_blog_list(null, 'all'); // Get all blogs
 
 	/* Set up the number of posts per blog to retrieve */
 	$num_posts = 3; // default to 3 posts
@@ -83,7 +82,28 @@ function get_cf_mu_blog_feed() {
 		}
 		restore_current_blog();
 	}
-	return apply_filters('cf_mu_blog_feed_results', $blog_feed);
+	
+	/* Get latest posts' date into array with a blog_id value that we
+	*	can use later */
+	foreach ($blog_feed as $key => $blog) {
+		$sortorder[] = array(
+			'latest_post' => $blog['posts'][0]->post_date,
+			'blog_id' => $key
+		);
+	}
+
+	/* Sort array desc according to the latest post of each */
+	arsort($sortorder);
+	
+	/* Loop through each to get blogs in right order, and pull associated posts 
+	* 	from original blog_feed array, so we don't use all the processing power
+	* 	to do the same work over again. */
+	$sorted_blog_feed = array();
+	foreach ($sortorder as $blog) {
+		$sorted_blog_feed[$blog['blog_id']] = $blog_feed[$blog['blog_id']];
+	}
+	
+	return apply_filters('cf_mu_blog_feed_results', $sorted_blog_feed);
 }
 
 
