@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Mu Blog Feed 
+Plugin Name: CF Mu Blog Feed 
 Plugin URI: cf-mu-blog-feed 
 Description: This plugin outputs a list of blogs with the one with the most recent post placed at top, and has links to the latest 3 posts in that blog
 Version: 1.0 
