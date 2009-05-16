@@ -16,9 +16,9 @@ if (!defined('PLUGINDIR')) {
 
 load_plugin_textdomain('cf-mu-blog-feed');
 
-function get_cf_mu_blog_feed() {
+function cf_get_mu_blog_feed() {
 	/* Get array of blogs */
-	$blog_list = get_blog_list(null, 'all'); // Get all blogs
+	$blog_list = apply_filters('cf_mu_blog_feed_blog_list', get_blog_list(null, 'all')); // Get all blogs
 
 	/* Set up the number of posts per blog to retrieve */
 	$num_posts = 3; // default to 3 posts
