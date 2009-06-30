@@ -31,6 +31,7 @@ function cf_get_mu_blog_feed() {
 	foreach ($blog_list as $blog) {
 		switch_to_blog($blog['blog_id']);
 		$blog_feed[$blog['blog_id']]['description'] = get_bloginfo('description');
+		$blog_feed[$blog['blog_id']] = apply_filters('cf_mu_blog_feed_blog_info_hook', $blog_feed[$blog['blog_id']], $blog['blog_id']);
 		$args = array(
 			'numberposts' => $num_posts,
 		);
